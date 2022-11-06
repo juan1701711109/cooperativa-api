@@ -1,0 +1,17 @@
+POST http://localhost:3000/api/roles
+Content-Type: application/json
+
+{
+    "nombre": "interesado"
+}
+
+###
+PUT http://localhost:3000/api/roles/2
+Content-Type: application/json
+
+{
+    "nombre": "admin"
+}
+
+###
+DELETE http://localhost:3000/api/roles/3

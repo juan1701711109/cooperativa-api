@@ -8,73 +8,84 @@ const mysql = require('mysql');
 const datos = require('../config/conexion_db');
 const conexion = mysql.createConnection(datos);
 
-
-
 //GET ALL WITH FILTERS
-routerRoles.get('/', (req, res) => {
-    conexion.query('SELECT * FROM roles', (err, results, fields) => {
-        if(err) {
-          throw err;
-        }
-      
-        results.forEach(result => {
-          console.log(result);
-        });
-        res.send(results);
-      });
+routerRoles.get('/', async (req, res) => {
+	roles = [];
+	await conexion.query('SELECT * FROM roles', (err, results, fields) => {
+		if(err) {
+			throw err;
+		}
+
+		roles = results;
+
+		if(roles.length !== 0)
+				return res.send(results);
+		else 
+				return res.status(404).send(`No se encontraron roles`);
+		});
 })
 
 //GET BY ID
-routerRoles.get('/:id',async (req, res) => {
-    const id = req.params.id;
-    roles = [];
-    await conexion.query(`SELECT * FROM roles WHERE id = ${id}`, (err, results, fields) => {
-        roles = results;
-        console.log(results)
-        if(roles !== [])
-            return res.send(roles);
-        else 
-            return res.status(404).send(`No se encontró un rol con el id ${id}`);
+routerRoles.get('/:id', async (req, res) => {
+	const id = req.params.id;
+	roles = [];
+	await conexion.query(`SELECT * FROM roles WHERE id = ${id}`, (err, results, fields) => {
+		if(err) {
+			throw err;
+		}
 
-      });
+		roles = results;
 
+		if(roles.length !== 0)
+			return res.send(roles);
+		else 
+			return res.status(404).send(`No se encontró un rol con el id ${id}`);
+	});
 })
 
 //POST
-routerRoles.post('/', jsonParser, (req, res) => {
-    let nuevoCurso = req.body;
+routerRoles.post('/', jsonParser, async (req, res) => {
+	let nuevoRol = req.body;
 
-    programacion.push(nuevoCurso);
-    res.send(programacion);
+	console.log(nuevoRol.nombre);
+
+	if(nuevoRol.nombre !== "") {
+		await conexion.query(`INSERT INTO roles (nombre) VALUES ('${nuevoRol.nombre}')`, (err, results, fields) => {
+			if(err) {
+					throw err;
+				}
+
+			return res.status(204).send("Ingresado Exitosamente");	
+		});
+	} else {
+			return res.status(404).send(`Datos enviados no válidos`);
+	}
 })
 
-routerRoles.put('/:id', jsonParser, (req, res) => {
+routerRoles.put('/:id', jsonParser, async (req, res) => {
     let id = req.params.id;
-    let nuevoCurso = req.body;
+    let nuevoRol = req.body;
 
-    let pos = programacion.findIndex(curso => curso.id == id);
-    
-    if(pos === -1) {
-        return res.status(404).send(`No se encontró un curso con el id ${id}`);
-    }
+    console.log(nuevoRol.nombre);
 
-    programacion[pos] = nuevoCurso;
-    
-    return res.send(programacion[pos]);
+	if(nuevoRol.nombre !== "") {
+		
+	} else {
+			return res.status(404).send(`Datos enviados no válidos`);
+	} 
 })
 
-routerRoles.delete('/:id' , (req, res) => {
+routerRoles.delete('/:id' , async (req, res) => {
     let id = req.params.id;
 
-    let pos = programacion.findIndex(curso => curso.id == id);
+		await conexion.query(`DELETE FROM roles WHERE id = ${id}`, (err, results, fields) => {
+			if(err) {
+					throw err;
+				}
+			
+			return res.status(200).send(`Eliminado el curso con el indice ${id}`);
+		}); 
     
-    if(pos === -1) {
-        return res.status(404).send(`No se encontró un curso con el id ${id}`);
-    }
-
-    programacion.splice(pos, 1);
-
-    return res.send(`Eliminado el curso con el indice ${id}`);
 })
 
 module.exports = routerRoles;
