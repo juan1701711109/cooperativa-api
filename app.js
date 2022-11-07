@@ -20,6 +20,8 @@ const conexion = mysql.createConnection(datos);
 const routerRoles = require('./routes/rolesController');
 app.use('/api/roles', routerRoles);
 
+const routerUsuarios = require('./routes/usuariosController');
+app.use('/api/usuarios', routerUsuarios);
 
 conexion.connect((err) => {
   if(err) {

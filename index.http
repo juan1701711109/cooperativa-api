@@ -10,8 +10,38 @@ PUT http://localhost:3000/api/roles/2
 Content-Type: application/json
 
 {
-    "nombre": "admin"
+    "nombre": "Administrador"
 }
 
 ###
 DELETE http://localhost:3000/api/roles/3
+
+###
+POST http://localhost:3000/api/usuarios
+Content-Type: application/json
+
+{
+    "nombre": "Juanito",
+    "numero_documento": "735129",
+    "monto_mensual": 250000,
+    "ahorro_total": 0,
+    "tipo_documento_id": 1,
+    "rol_id": 2
+}
+
+###
+PUT http://localhost:3000/api/usuarios/1
+Content-Type: application/json
+
+{
+    "id": 1,
+    "nombre": "juano",
+    "numero_documento": "123456",
+    "monto_mensual": 5000,
+    "ahorro_total": 0,
+    "tipo_documento_id": 1,
+    "rol_id": 2
+}
+
+###
+DELETE http://localhost:3000/api/usuarios/3

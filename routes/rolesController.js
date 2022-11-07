@@ -66,13 +66,17 @@ routerRoles.put('/:id', jsonParser, async (req, res) => {
     let id = req.params.id;
     let nuevoRol = req.body;
 
-    console.log(nuevoRol.nombre);
+		await conexion.query(`UPDATE roles SET nombre = '${nuevoRol.nombre}' WHERE id = '${id}'`, (err, results, fields) => {
+			if(err) {
+					throw err;
+				}
 
-	if(nuevoRol.nombre !== "") {
-		
-	} else {
-			return res.status(404).send(`Datos enviados no válidos`);
-	} 
+				if(nuevoRol.nombre !== "") {
+					return res.status(204).send("Editado Exitosamente");	
+				} else {
+						return res.status(404).send(`Datos enviados no válidos`);
+				} 
+		}); 
 })
 
 routerRoles.delete('/:id' , async (req, res) => {
