@@ -32,6 +32,9 @@ app.use('/api/usuarios', routerUsuarios);
 const routerTiposDocumento = require('./routes/TiposDocumentoController');
 app.use('/api/tipos-documento', routerTiposDocumento);
 
+const routerCuotas = require('./routes/CuotasController');
+app.use('/api/pagos', routerCuotas);
+
 conexion.connect((err) => {
   if(err) {
     console.log(err);
