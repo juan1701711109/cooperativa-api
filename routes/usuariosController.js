@@ -45,7 +45,6 @@ routerUsuarios.get('/:id', async (req, res) => {
 routerUsuarios.post('/', jsonParser, async (req, res) => {
 	let nuevoUsuario = req.body;
 
-	console.log(nuevoUsuario.nombre);
 
 	if(nuevoUsuario.nombre !== "") {
 		await conexion.query(`INSERT INTO usuarios 
@@ -57,22 +56,6 @@ routerUsuarios.post('/', jsonParser, async (req, res) => {
 			if(err) {
 					throw err;
 				}
-
-				console.log(results.insertId);
-				/* conexion.query(`INSERT INTO	pagos (estado, fecha, usuario_id)
-							VALUES  ('${0}', '${'2022-12-31 23:59:59'}', '${results.insertId}'),
-									('${0}', '${'2023-01-31 23:59:59'}', '${results.insertId}'),
-									('${0}', '${'2023-02-31 23:59:59'}', '${results.insertId}'),
-									('${0}', '${'2023-03-31 23:59:59'}', '${results.insertId}'),
-									('${0}', '${'2023-04-31 23:59:59'}', '${results.insertId}'),
-									('${0}', '${'2023-05-31 23:59:59'}', '${results.insertId}'),
-									('${0}', '${'2023-06-31 23:59:59'}', '${results.insertId}'),
-									('${0}', '${'2023-07-31 23:59:59'}', '${results.insertId}'),
-									('${0}', '${'2023-08-31 23:59:59'}', '${results.insertId}'),
-									('${0}', '${'2023-09-31 23:59:59'}', '${results.insertId}'),
-									('${0}', '${'2023-10-31 23:59:59'}', '${results.insertId}'),
-									('${0}', '${'2023-1-31 23:59:59'}', '${results.insertId}')
-									`); */
 
 				insertarCuotas(0, '2022-12-31 23:59:59', results.insertId);
 			return res.status(204).send("Ingresado Exitosamente");	
