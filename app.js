@@ -4,12 +4,18 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
+const app = express();
+
+const cors = require('cors');
+app.use(cors({
+    origin: '*'
+}));
+
 const conexion_db = require('./config/conexion_db');  
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
-const app = express();
 
 const mysql = require('mysql');
 const datos = require('./config/conexion_db');
@@ -22,6 +28,9 @@ app.use('/api/roles', routerRoles);
 
 const routerUsuarios = require('./routes/usuariosController');
 app.use('/api/usuarios', routerUsuarios);
+
+const routerTiposDocumento = require('./routes/TiposDocumentoController');
+app.use('/api/tipos-documento', routerTiposDocumento);
 
 conexion.connect((err) => {
   if(err) {

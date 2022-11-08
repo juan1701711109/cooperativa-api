@@ -10,15 +10,12 @@ const conexion = mysql.createConnection(datos);
 
 //GET ALL WITH FILTERS
 routerRoles.get('/', async (req, res) => {
-	roles = [];
 	await conexion.query('SELECT * FROM roles', (err, results, fields) => {
 		if(err) {
 			throw err;
 		}
 
-		roles = results;
-
-		if(roles.length !== 0)
+		if(results.length !== 0)
 				return res.send(results);
 		else 
 				return res.status(404).send(`No se encontraron roles`);
@@ -28,16 +25,13 @@ routerRoles.get('/', async (req, res) => {
 //GET BY ID
 routerRoles.get('/:id', async (req, res) => {
 	const id = req.params.id;
-	roles = [];
 	await conexion.query(`SELECT * FROM roles WHERE id = ${id}`, (err, results, fields) => {
 		if(err) {
 			throw err;
 		}
 
-		roles = results;
-
-		if(roles.length !== 0)
-			return res.send(roles);
+		if(results.length !== 0)
+			return res.send(results);
 		else 
 			return res.status(404).send(`No se encontró un rol con el id ${id}`);
 	});

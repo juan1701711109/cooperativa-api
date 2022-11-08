@@ -58,6 +58,23 @@ routerUsuarios.post('/', jsonParser, async (req, res) => {
 					throw err;
 				}
 
+				console.log(results.insertId);
+				/* conexion.query(`INSERT INTO	pagos (estado, fecha, usuario_id)
+							VALUES  ('${0}', '${'2022-12-31 23:59:59'}', '${results.insertId}'),
+									('${0}', '${'2023-01-31 23:59:59'}', '${results.insertId}'),
+									('${0}', '${'2023-02-31 23:59:59'}', '${results.insertId}'),
+									('${0}', '${'2023-03-31 23:59:59'}', '${results.insertId}'),
+									('${0}', '${'2023-04-31 23:59:59'}', '${results.insertId}'),
+									('${0}', '${'2023-05-31 23:59:59'}', '${results.insertId}'),
+									('${0}', '${'2023-06-31 23:59:59'}', '${results.insertId}'),
+									('${0}', '${'2023-07-31 23:59:59'}', '${results.insertId}'),
+									('${0}', '${'2023-08-31 23:59:59'}', '${results.insertId}'),
+									('${0}', '${'2023-09-31 23:59:59'}', '${results.insertId}'),
+									('${0}', '${'2023-10-31 23:59:59'}', '${results.insertId}'),
+									('${0}', '${'2023-1-31 23:59:59'}', '${results.insertId}')
+									`); */
+
+				insertarCuotas(0, '2022-12-31 23:59:59', results.insertId);
 			return res.status(204).send("Ingresado Exitosamente");	
 		});
 	} else {
@@ -99,6 +116,23 @@ routerUsuarios.delete('/:id' , async (req, res) => {
 		}); 
     
 })
+
+const insertarCuotas = async (estado, fecha, usuario_id) => {
+	await conexion.query(`INSERT INTO	pagos (estado, fecha, usuario_id)
+							VALUES  ('${estado}', '${'2022-12-31 23:59:59'}', '${usuario_id}'),
+									('${estado}', '${'2023-01-31 23:59:59'}', '${usuario_id}'),
+									('${estado}', '${'2023-02-28 23:59:59'}', '${usuario_id}'),
+									('${estado}', '${'2023-03-30 23:59:59'}', '${usuario_id}'),
+									('${estado}', '${'2023-04-30 23:59:59'}', '${usuario_id}'),
+									('${estado}', '${'2023-05-30 23:59:59'}', '${usuario_id}'),
+									('${estado}', '${'2023-06-30 23:59:59'}', '${usuario_id}'),
+									('${estado}', '${'2023-07-30 23:59:59'}', '${usuario_id}'),
+									('${estado}', '${'2023-08-30 23:59:59'}', '${usuario_id}'),
+									('${estado}', '${'2023-09-30 23:59:59'}', '${usuario_id}'),
+									('${estado}', '${'2023-10-30 23:59:59'}', '${usuario_id}'),
+									('${estado}', '${'2023-01-30 23:59:59'}', '${usuario_id}')
+									`)
+}
 
 
 module.exports = routerUsuarios;

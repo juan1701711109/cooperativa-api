@@ -21,8 +21,8 @@ POST http://localhost:3000/api/usuarios
 Content-Type: application/json
 
 {
-    "nombre": "Juanito",
-    "numero_documento": "735129",
+    "nombre": "davinchi",
+    "numero_documento": "12112322213",
     "monto_mensual": 250000,
     "ahorro_total": 0,
     "tipo_documento_id": 1,
@@ -35,7 +35,7 @@ Content-Type: application/json
 
 {
     "id": 1,
-    "nombre": "juano",
+    "nombre": "juanito",
     "numero_documento": "123456",
     "monto_mensual": 5000,
     "ahorro_total": 0,
